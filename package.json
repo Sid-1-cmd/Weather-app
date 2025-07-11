@@ -1,0 +1,26 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A simple weather app using Node.js and Express",
+  "type": "module",
+  "main": "server.js",
+  
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sid-1-cmd/Weather-app.git"
+  },
+  "keywords": [],
+  "author": "Siddhartha Roy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sid-1-cmd/Weather-app/issues"
+  },
+  "homepage": "https://github.com/sid-1-cmd/Weather-app#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}
