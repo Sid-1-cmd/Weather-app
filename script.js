@@ -1,21 +1,24 @@
 async function getWeather() {
   const city = document.getElementById('cityInput').value;
-  const apiKey = '8f4966820eec3e5fe2e1284d7d2a40b3';
+  const apiKey = 'f74284c88ae61096f2d01c67d4fa82b3'; // TEST KEY
 
+  const proxy = 'https://corsproxy.io/?';
+  const url = `${proxy}https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
   if (!city) {
     alert('Please enter a city name.');
     return;
   }
 
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  document.getElementById('weatherResult').innerHTML = 'Loading...';
 
   try {
     const response = await fetch(url);
     const data = await response.json();
+    console.log(data);
 
-    if (data.cod === "404") {
-      document.getElementById('weatherResult').innerHTML = "City not found!";
+    if (data.cod !== 200 || !data.main || !data.weather) {
+      document.getElementById('weatherResult').innerHTML = `❌ Error: ${data.message || 'Invalid data received.'}`;
       return;
     }
 
@@ -30,7 +33,12 @@ async function getWeather() {
       🌥️ Condition: ${desc}
     `;
   } catch (error) {
-    console.error(error);
-    document.getElementById('weatherResult').innerHTML = "Error fetching weather data.";
+    console.error("Fetch error:", error);
+    document.getElementById('weatherResult').innerHTML = "❌ Error fetching weather data.";
   }
 }
+
+// Wait until DOM is fully loaded before attaching event
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('getWeatherBtn').addEventListener('click', getWeather);
+});
